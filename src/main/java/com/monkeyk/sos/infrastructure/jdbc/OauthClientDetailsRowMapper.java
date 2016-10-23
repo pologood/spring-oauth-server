@@ -11,12 +11,11 @@
  */
 package com.monkeyk.sos.infrastructure.jdbc;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import com.monkeyk.sos.domain.oauth.OauthClientDetails;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.monkeyk.sos.domain.oauth.OauthClientDetails;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * 2015/11/16

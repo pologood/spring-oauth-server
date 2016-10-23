@@ -40,6 +40,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -74,6 +76,25 @@ public class OAuthRestController implements InitializingBean, ApplicationContext
     private OAuth2RequestValidator oAuth2RequestValidator = new DefaultOAuth2RequestValidator();
     private WebResponseExceptionTranslator providerExceptionHandler = new DefaultWebResponseExceptionTranslator();
 
+
+    @RequestMapping(value="/login",method = RequestMethod.POST)
+    @ResponseBody
+    public String login(HttpServletResponse response){
+        System.out.println("login invoked");
+        try {
+            response.sendRedirect("index.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    @RequestMapping(value="/hh.do",method = RequestMethod.POST)
+    @ResponseBody
+    public String h(){
+        System.out.println("hh.do invoked");
+        return "";
+    }
 
     @RequestMapping(value = "/oauth/rest_token", method = RequestMethod.POST)
     @ResponseBody

@@ -38,11 +38,10 @@
      一般使用时这里不需要修改, 直接使用即可
     -->
     <http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="oauth2AuthenticationManager"
-          entry-point-ref="oauth2AuthenticationEntryPoint" use-expressions="false">
+          entry-point-ref="oauth2AuthenticationEntryPoint"  use-expressions="false">
         <intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY"/>
         <anonymous enabled="false"/>
         <http-basic entry-point-ref="oauth2AuthenticationEntryPoint"/>
-
         <custom-filter ref="clientCredentialsTokenEndpointFilter" before="BASIC_AUTH_FILTER"/>
         <access-denied-handler ref="oauth2AccessDeniedHandler"/>
         <csrf disabled="true"/>
@@ -65,7 +64,7 @@
         /m/**  处理资源 mobileResourceServer
     -->
     <!--unity http configuration-->
-    <http pattern="/unity/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint"
+    <http  pattern="/unity/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint"
           access-decision-manager-ref="oauth2AccessDecisionManager" use-expressions="false">
         <anonymous enabled="false"/>
 
@@ -132,6 +131,7 @@
         <beans:property name="tokenStore" ref="tokenStore"/>
         <beans:property name="clientDetailsService" ref="clientDetailsService"/>
         <beans:property name="supportRefreshToken" value="true"/>
+        <beans:property name="accessTokenValiditySeconds" value="60"/>
     </beans:bean>
 
     <!--<global-method-security pre-post-annotations="enabled" proxy-target-class="true">-->
@@ -178,14 +178,13 @@
     <oauth2:authorization-server client-details-service-ref="clientDetailsService" token-services-ref="tokenServices"
                                  user-approval-handler-ref="oauthUserApprovalHandler"
                                  user-approval-page="oauth_approval"
-                                 error-page="oauth_error">
+                                 error-page="oauth_error" authorization-endpoint-url="/oauth2/auth"  >
         <oauth2:authorization-code authorization-code-services-ref="jdbcAuthorizationCodeServices"/>
         <oauth2:implicit/>
         <oauth2:refresh-token/>
         <oauth2:client-credentials/>
         <oauth2:password/>
     </oauth2:authorization-server>
-
 
     <beans:bean id="oauth2AuthenticationEntryPoint"
                 class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint"/>
@@ -218,14 +217,13 @@
     <beans:bean id="oauth2AccessDeniedHandler"
                 class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler"/>
 
-
     <http disable-url-rewriting="true" use-expressions="false"
           authentication-manager-ref="authenticationManager">
         <intercept-url pattern="/oauth/**" access="ROLE_USER,ROLE_UNITY,ROLE_MOBILE"/>
         <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <form-login authentication-failure-url="/login.jsp?authentication_error=1" default-target-url="/index.jsp"
-                    login-page="/login.jsp" login-processing-url="/login.do"/>
+                    login-page="/login.jsp" login-processing-url="/login"/>
         <logout logout-success-url="/index.jsp" logout-url="/logout.do"/>
         <access-denied-handler error-page="/login.jsp?authorization_error=2"/>
         <anonymous/>
