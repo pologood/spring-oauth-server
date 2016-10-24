@@ -1,4 +1,4 @@
-package com.monkeyk.sos.domain.shared;
+package com.monkeyk.sos.utils;
 
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 

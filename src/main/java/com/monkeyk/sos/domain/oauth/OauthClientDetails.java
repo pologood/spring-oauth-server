@@ -8,7 +8,7 @@ import com.monkeyk.sos.infrastructure.DateUtils;
 /**
  * 定义OAuth中的 Client, 也称 ClientDetails
  *
- * @author Shengzhao Li
+ * @author yaoguang.du@duolabao.com
  */
 public class OauthClientDetails implements Serializable {
 

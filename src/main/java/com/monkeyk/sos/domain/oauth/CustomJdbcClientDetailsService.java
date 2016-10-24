@@ -17,7 +17,7 @@ import static com.monkeyk.sos.infrastructure.CacheConstants.CLIENT_DETAILS_CACHE
  * <p/>
  * 增加缓存支持
  *
- * @author Shengzhao Li
+ * @author yaoguang.du@duolabao.com
  */
 public class CustomJdbcClientDetailsService extends JdbcClientDetailsService {
 

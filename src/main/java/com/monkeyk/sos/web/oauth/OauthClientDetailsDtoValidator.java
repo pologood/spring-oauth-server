@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.annotation.Resource;
+
 /**
  * @author Shengzhao Li
  */
@@ -15,7 +17,7 @@ import org.springframework.validation.Validator;
 public class OauthClientDetailsDtoValidator implements Validator {
 
 
-    @Autowired
+    @Resource
     private OauthService oauthService;
 
     @Override

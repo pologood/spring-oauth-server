@@ -5,7 +5,7 @@
  * use it only in accordance with the terms of the license agreement you entered
  * into with duolabao.com.
  */
-package com.monkeyk.sos.domain;
+package com.monkeyk.sos.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

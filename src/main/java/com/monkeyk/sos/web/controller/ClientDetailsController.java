@@ -3,6 +3,8 @@ package com.monkeyk.sos.web.controller;
 import com.monkeyk.sos.domain.OauthClientDetailsDto;
 import com.monkeyk.sos.service.OauthService;
 import com.monkeyk.sos.web.oauth.OauthClientDetailsDtoValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,10 +26,13 @@ import java.util.List;
 public class ClientDetailsController {
 
 
-    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(ClientDetailsController.class);
+
+
+    @Resource
     private OauthService oauthService;
 
-    @Autowired
+    @Resource
     private OauthClientDetailsDtoValidator clientDetailsDtoValidator;
 
 

@@ -11,14 +11,16 @@
  */
 package com.monkeyk.sos.infrastructure.jdbc;
 
+import com.monkeyk.sos.dao.IOauthClientDetailsDao;
 import com.monkeyk.sos.domain.oauth.OauthClientDetails;
-import com.monkeyk.sos.domain.oauth.OauthRepository;
-import com.monkeyk.sos.domain.shared.GuidGenerator;
 import com.monkeyk.sos.infrastructure.AbstractRepositoryTest;
+import com.monkeyk.sos.utils.GuidGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.testng.Assert.*;
 
@@ -29,12 +31,12 @@ public class OauthRepositoryJdbcTest extends AbstractRepositoryTest {
 
 
     @Autowired
-    private OauthRepository oauthRepositoryMyBatis;
+    private IOauthClientDetailsDao oauthClientDetailsDao;
 
 
     @Test
     public void findOauthClientDetails() {
-        OauthClientDetails oauthClientDetails = oauthRepositoryMyBatis.findOauthClientDetails("unity-client");
+        OauthClientDetails oauthClientDetails = oauthClientDetailsDao.findById("unity-client");
         assertNull(oauthClientDetails);
 
     }
@@ -46,9 +48,9 @@ public class OauthRepositoryJdbcTest extends AbstractRepositoryTest {
         final String clientId = GuidGenerator.generate();
 
         OauthClientDetails clientDetails = new OauthClientDetails().clientId(clientId);
-        oauthRepositoryMyBatis.saveOauthClientDetails(clientDetails);
+        oauthClientDetailsDao.save(clientDetails);
 
-        final OauthClientDetails oauthClientDetails = oauthRepositoryMyBatis.findOauthClientDetails(clientId);
+        final OauthClientDetails oauthClientDetails = oauthClientDetailsDao.findById(clientId);
         assertNotNull(oauthClientDetails);
         assertNotNull(oauthClientDetails.clientId());
         assertNull(oauthClientDetails.clientSecret());
@@ -57,14 +59,18 @@ public class OauthRepositoryJdbcTest extends AbstractRepositoryTest {
 
     @Test
     public void findAllOauthClientDetails() {
-        final List<OauthClientDetails> allOauthClientDetails = oauthRepositoryMyBatis.findAllOauthClientDetails();
+        final List<OauthClientDetails> allOauthClientDetails = oauthClientDetailsDao.findAll();
         assertNotNull(allOauthClientDetails);
         assertTrue(allOauthClientDetails.isEmpty());
     }
 
     @Test
     public void updateOauthClientDetailsArchive() {
-        oauthRepositoryMyBatis.updateOauthClientDetailsArchive("ddooelddd", true);
+        Map<String, Object> params = new HashMap<>();
+        params.put("client_id", "safasfdsdas");
+        params.put("archived", true);
+
+        oauthClientDetailsDao.updateOauthClientDetailsArchive(params);
     }
 
 
