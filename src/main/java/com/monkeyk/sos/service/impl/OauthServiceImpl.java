@@ -3,7 +3,6 @@ package com.monkeyk.sos.service.impl;
 import com.monkeyk.sos.dao.IOauthClientDetailsDao;
 import com.monkeyk.sos.domain.OauthClientDetailsDto;
 import com.monkeyk.sos.domain.oauth.OauthClientDetails;
-import com.monkeyk.sos.domain.oauth.OauthRepository;
 import com.monkeyk.sos.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
