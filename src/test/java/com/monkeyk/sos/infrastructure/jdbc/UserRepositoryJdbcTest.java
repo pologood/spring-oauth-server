@@ -42,9 +42,9 @@ public class UserRepositoryJdbcTest extends AbstractRepositoryTest {
         user = new User("user", "123", "123", "ewo@honyee.cc");
         userDao.saveUser(user);
 
-        user = userDao.findByGuid(user.guid());
+        user = userDao.findByGuid(user.getGuid());
         assertNotNull(user);
-        assertNotNull(user.email());
+        assertNotNull(user.getEmail());
 
 
     }
@@ -57,7 +57,7 @@ public class UserRepositoryJdbcTest extends AbstractRepositoryTest {
         user = new User("user", "123", "123", "ewo@honyee.cc");
         userDao.saveUser(user);
 
-        final List<User> list = userDao.findUsersByUsername(user.username());
+        final List<User> list = userDao.findUsersByUsername(user.getUsername());
         assertNotNull(list);
 
         assertEquals(list.size(), 1);
@@ -70,17 +70,17 @@ public class UserRepositoryJdbcTest extends AbstractRepositoryTest {
         User user = new User("user", "123", "123", "ewo@honyee.cc");
         userDao.saveUser(user);
 
-        user = userDao.findByGuid(user.guid());
+        user = userDao.findByGuid(user.getGuid());
         assertNotNull(user);
-        assertNotNull(user.email());
+        assertNotNull(user.getEmail());
 
         String newEmail = "test@honyee.cc";
-        user.email(newEmail).phone("12344444");
+        user.setEmail(newEmail).setPhone("12344444");
         userDao.update(user);
 
-        user = userDao.findByGuid(user.guid());
+        user = userDao.findByGuid(user.getGuid());
         assertNotNull(user);
-        assertEquals(user.email(), newEmail);
+        assertEquals(user.getEmail(), newEmail);
     }
 
 
@@ -105,7 +105,7 @@ public class UserRepositoryJdbcTest extends AbstractRepositoryTest {
         final User user = userDao.findByGuid(guid);
 
         assertNotNull(user);
-        assertEquals(user.privileges().size(), 1);
+        assertEquals(user.getPrivileges().size(), 1);
 
 
     }

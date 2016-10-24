@@ -33,11 +33,11 @@ public class UserFormDto extends UserDto {
 
     public User newUser() {
         final User user = new User()
-                .username(getUsername())
-                .phone(getPhone())
-                .email(getEmail())
-                .password(PasswordHandler.md5(getPassword()));
-        user.privileges().addAll(getPrivileges());
+                .setUsername(getUsername())
+                .setPhone(getPhone())
+                .setEmail(getEmail())
+                .setPassword(PasswordHandler.md5(getPassword()));
+        user.getPrivileges().addAll(getPrivileges());
         return user;
     }
 }

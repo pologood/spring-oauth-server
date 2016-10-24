@@ -45,24 +45,24 @@ public abstract class AbstractDomain implements Serializable {
         this.id = id;
     }
 
-    public boolean archived() {
+    public boolean isArchived() {
         return archived;
     }
 
-    public AbstractDomain archived(boolean archived) {
+    public AbstractDomain setArchived(boolean archived) {
         this.archived = archived;
         return this;
     }
 
-    public String guid() {
+    public String getGuid() {
         return guid;
     }
 
-    public void guid(String guid) {
+    public void setGuid(String guid) {
         this.guid = guid;
     }
 
-    public Date createTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 

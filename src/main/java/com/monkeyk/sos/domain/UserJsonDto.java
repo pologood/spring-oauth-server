@@ -26,14 +26,14 @@ public class UserJsonDto implements Serializable {
     }
 
     public UserJsonDto(User user) {
-        this.guid = user.guid();
-        this.archived = user.archived();
-        this.username = user.username();
+        this.guid = user.getGuid();
+        this.archived = user.isArchived();
+        this.username = user.getUsername();
 
-        this.phone = user.phone();
-        this.email = user.email();
+        this.phone = user.getPhone();
+        this.email = user.getEmail();
 
-        final List<Privilege> privilegeList = user.privileges();
+        final List<Privilege> privilegeList = user.getPrivileges();
         for (Privilege privilege : privilegeList) {
             this.privileges.add(privilege.name());
         }

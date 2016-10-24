@@ -29,7 +29,6 @@ public class UserDto implements Serializable {
     private static final long serialVersionUID = -2502329463915439215L;
 
 
-
     private String guid;
 
     private String username;
@@ -47,12 +46,12 @@ public class UserDto implements Serializable {
 
 
     public UserDto(User user) {
-        this.guid = user.guid();
-        this.username = user.username();
-        this.phone = user.phone();
-        this.email = user.email();
+        this.guid = user.getGuid();
+        this.username = user.getUsername();
+        this.phone = user.getPhone();
+        this.email = user.getEmail();
 
-        this.privileges = user.privileges();
+        this.privileges = user.getPrivileges();
         this.createTime = DateUtils.toDateTime(new Date());
     }
 

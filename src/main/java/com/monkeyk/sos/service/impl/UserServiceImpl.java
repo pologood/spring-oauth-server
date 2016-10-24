@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
-        if (user == null || user.archived()) {
+        if (user == null || user.isArchived()) {
             throw new UsernameNotFoundException("Not found any user for username[" + username + "]");
         }
 
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
 
     private User findPrivilieges(User user){
-        user.privileges().addAll(privilegeDao.findByUserId(user.getId()));
+        user.getPrivileges().addAll(privilegeDao.findByUserId(user.getId()));
         return user;
     }
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         } else {
             final WdcyUserDetails userDetails = (WdcyUserDetails) principal;
 
-            return new UserJsonDto(findPrivilieges(userDao.findByGuid(userDetails.user().guid())));
+            return new UserJsonDto(findPrivilieges(userDao.findByGuid(userDetails.user().getGuid())));
         }
     }
 
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     public String saveUser(UserFormDto formDto) {
         User user = formDto.newUser();
         userDao.saveUser(user);
-        return user.guid();
+        return user.getGuid();
     }
 
 

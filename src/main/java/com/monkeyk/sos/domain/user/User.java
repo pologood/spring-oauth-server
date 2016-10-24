@@ -39,27 +39,27 @@ public class User extends AbstractDomain {
         this.email = email;
     }
 
-    public boolean defaultUser() {
+    public boolean isDefaultUser() {
         return defaultUser;
     }
 
-    public String username() {
+    public String getUsername() {
         return username;
     }
 
-    public String password() {
+    public String getPassword() {
         return password;
     }
 
-    public String phone() {
+    public String getPhone() {
         return phone;
     }
 
-    public String email() {
+    public String getEmail() {
         return email;
     }
 
-    public List<Privilege> privileges() {
+    public List<Privilege> getPrivileges() {
         return privileges;
     }
 
@@ -76,28 +76,28 @@ public class User extends AbstractDomain {
         return sb.toString();
     }
 
-    public User email(String email) {
+    public User setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public User phone(String phone) {
+    public User setPhone(String phone) {
         this.phone = phone;
         return this;
     }
 
 
-    public User username(String username) {
+    public User setUsername(String username) {
         this.username = username;
         return this;
     }
 
 
-    public Date lastLoginTime() {
+    public Date getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public User lastLoginTime(Date lastLoginTime) {
+    public User setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
         return this;
     }
@@ -107,7 +107,7 @@ public class User extends AbstractDomain {
         return this;
     }
 
-    public User password(String password) {
+    public User setPassword(String password) {
         this.password = password;
         return this;
     }

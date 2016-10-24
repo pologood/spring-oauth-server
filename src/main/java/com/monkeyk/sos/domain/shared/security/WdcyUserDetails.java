@@ -34,11 +34,11 @@ public class WdcyUserDetails implements UserDetails {
         //Default, everyone have it
         this.grantedAuthorities.add(DEFAULT_USER_ROLE);
         //default user have all privileges
-        if (user.defaultUser()) {
+        if (user.isDefaultUser()) {
             this.grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + Privilege.UNITY.name()));
             this.grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + Privilege.MOBILE.name()));
         } else {
-            final List<Privilege> privileges = user.privileges();
+            final List<Privilege> privileges = user.getPrivileges();
             for (Privilege privilege : privileges) {
                 this.grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + privilege.name()));
             }
@@ -57,12 +57,12 @@ public class WdcyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.password();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.username();
+        return user.getUsername();
     }
 
     @Override
