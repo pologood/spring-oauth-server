@@ -1,6 +1,6 @@
 package com.monkeyk.sos.service.impl;
 
-import com.monkeyk.sos.domain.dto.OauthClientDetailsDto;
+import com.monkeyk.sos.domain.OauthClientDetailsDto;
 import com.monkeyk.sos.domain.oauth.OauthClientDetails;
 import com.monkeyk.sos.domain.oauth.OauthRepository;
 import com.monkeyk.sos.service.OauthService;

@@ -1,6 +1,6 @@
 package com.monkeyk.sos.web.controller.unity;
 
-import com.monkeyk.sos.domain.dto.UserJsonDto;
+import com.monkeyk.sos.domain.UserJsonDto;
 import com.monkeyk.sos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

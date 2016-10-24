@@ -32,7 +32,7 @@ public class UserRowMapper implements RowMapper<User> {
     public User mapRow(ResultSet rs, int i) throws SQLException {
         User user = new User();
 
-        user.id(rs.getInt("id"));
+        user.setId(rs.getInt("id"));
         user.guid(rs.getString("guid"));
 
         user.archived(rs.getBoolean("archived"));

@@ -1,4 +1,4 @@
-package com.monkeyk.sos.domain.dto;
+package com.monkeyk.sos.domain;
 
 import com.monkeyk.sos.domain.oauth.OauthClientDetails;
 import com.monkeyk.sos.domain.shared.GuidGenerator;

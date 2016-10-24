@@ -1,8 +1,10 @@
 package com.monkeyk.sos.web.controller;
 
-import com.monkeyk.sos.domain.dto.UserFormDto;
-import com.monkeyk.sos.domain.dto.UserOverviewDto;
+import com.monkeyk.sos.domain.UserFormDto;
+import com.monkeyk.sos.domain.UserOverviewDto;
 import com.monkeyk.sos.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/user/")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -30,6 +33,7 @@ public class UserController {
      */
     @RequestMapping("overview")
     public String overview(UserOverviewDto overviewDto, Model model) {
+        logger.info("enter user/overview");
         overviewDto = userService.loadUserOverviewDto(overviewDto);
         model.addAttribute("overviewDto", overviewDto);
         return "user_overview";

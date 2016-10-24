@@ -11,22 +11,17 @@
  */
 package com.monkeyk.sos.infrastructure.jdbc;
 
-import static com.monkeyk.sos.infrastructure.CacheConstants.USER_CACHE;
+import com.monkeyk.sos.domain.user.Privilege;
+import com.monkeyk.sos.domain.user.User;
+import com.monkeyk.sos.domain.user.UserRepository;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import com.monkeyk.sos.domain.user.Privilege;
-import com.monkeyk.sos.domain.user.User;
-import com.monkeyk.sos.domain.user.UserRepository;
 
 /**
  * 2015/11/16
@@ -43,13 +38,13 @@ public class UserRepositoryJdbc implements UserRepository {
 
     @Override
     public User findByGuid(String guid) {
-        final String sql = " select * from user_ where  guid = ? ";
+        final String sql = " select * from user where  guid = ? ";
         final List<User> list = this.jdbcTemplate.query(sql, new Object[]{guid}, userRowMapper);
 
         User user = null;
         if (!list.isEmpty()) {
             user = list.get(0);
-            user.privileges().addAll(findPrivileges(user.id()));
+            user.privileges().addAll(findPrivileges(user.getId()));
         }
 
         return user;
@@ -60,14 +55,16 @@ public class UserRepositoryJdbc implements UserRepository {
         final List<String> strings = this.jdbcTemplate.queryForList(sql, new Object[]{userId}, String.class);
 
         List<Privilege> privileges = new ArrayList<>(strings.size());
-       // privileges.addAll(strings.stream().map(Privilege::valueOf).collect(Collectors.toList()));
+        // privileges.addAll(strings.stream().map(Privilege::valueOf).collect(Collectors.toList()));
         return privileges;
     }
 
     @Override
     public void saveUser(final User user) {
-        final String sql = " insert into user_(guid,archived,create_time,email,password,username,phone) " +
+        final String sql = " insert into user(guid,archived,create_time,email,password,username,phone) " +
                 " values (?,?,?,?,?,?,?) ";
+
+
 //        this.jdbcTemplate.update(sql, ps -> {
 //            ps.setString(1, user.guid());
 //            ps.setBoolean(2, user.archived());
@@ -82,7 +79,7 @@ public class UserRepositoryJdbc implements UserRepository {
 //        });
 
         //get user id
-        final Integer id = this.jdbcTemplate.queryForObject("select id from user_ where guid = ?", new Object[]{user.guid()}, Integer.class);
+        final Integer id = this.jdbcTemplate.queryForObject("select id from user where guid = ?", new Object[]{user.guid()}, Integer.class);
 
 //        //insert privileges
 //        for (final Privilege privilege : user.privileges()) {
@@ -95,7 +92,7 @@ public class UserRepositoryJdbc implements UserRepository {
     }
 
     @Override
-    @CacheEvict(value = USER_CACHE, key = "#user.username()")
+    //@CacheEvict(value = USER_CACHE, key = "#user.username()")
     public void updateUser(final User user) {
         final String sql = " update user_ set username = ?, password = ?, phone = ?,email = ? where guid = ? ";
 //        this.jdbcTemplate.update(sql, ps -> {
@@ -112,13 +109,13 @@ public class UserRepositoryJdbc implements UserRepository {
     @Override
     //@Cacheable(value = USER_CACHE, key = "#username")
     public User findByUsername(String username) {
-        final String sql = " select * from user_ where username = ? and archived = 0 ";
+        final String sql = " select * from user where username = ? and archived = 0 ";
         final List<User> list = this.jdbcTemplate.query(sql, new Object[]{username}, userRowMapper);
 
         User user = null;
         if (!list.isEmpty()) {
             user = list.get(0);
-            user.privileges().addAll(findPrivileges(user.id()));
+            user.privileges().addAll(findPrivileges(user.getId()));
         }
 
         return user;
@@ -126,7 +123,7 @@ public class UserRepositoryJdbc implements UserRepository {
 
     @Override
     public List<User> findUsersByUsername(String username) {
-        String sql = " select * from user_ where archived = 0 ";
+        String sql = " select * from user where archived = 0 ";
         Object[] params = new Object[]{};
         if (StringUtils.isNotEmpty(username)) {
             sql += " and username like ?";
@@ -136,7 +133,7 @@ public class UserRepositoryJdbc implements UserRepository {
 
         final List<User> list = this.jdbcTemplate.query(sql, params, userRowMapper);
         for (User user : list) {
-            user.privileges().addAll(findPrivileges(user.id()));
+            user.privileges().addAll(findPrivileges(user.getId()));
         }
         return list;
     }

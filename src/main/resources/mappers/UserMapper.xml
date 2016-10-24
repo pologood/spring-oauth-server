@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monkeyk.sos.domain.user.User">
+    <resultMap id="userMap" type="com.monkeyk.sos.domain.user.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="guid" property="guid" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="archived" property="archived" jdbcType="TINYINT"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="default_user" property="defaultUser" jdbcType="TINYINT"/>
+        <result column="last_login_time" property="lastLoginTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.monkeyk.sos.domain.user.User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into user(guid,archived,create_time,email,password,username,phone)
+                values (#{guid},#{archived},#{createTime},#{email},#{password},#{username},#{phone})
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        update user set archived  = 1 where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.monkeyk.sos.domain.user.User">
+
+
+        update user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+
+            where guid = #{guid}
+        </set>
+        <!--set username = ?, password = ?, phone = ?,email = ? where guid = ?-->
+
+        <!-- update basic
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+
+
+        </set>
+        where tkey = #{tkey}  -->
+    </update>
+
+    <select id="findById" parameterType="long" resultMap="userMap">
+    </select>
+
+    <select id="findByUsername" parameterType="String" resultType="com.monkeyk.sos.domain.user.User">
+        select * from user where username = #{username} and archived = 0
+    </select>
+
+    <select id="findUsersByUsername" parameterType="String" resultMap="userMap">
+        select * from user
+
+        where 1=1
+        <if test="username != null">
+            and username = CONCAT(#{username},'%')
+        </if>
+        and archived = 0
+    </select>
+
+
+    <select id="findByGuid" parameterType="String" resultMap="userMap">
+
+        select * from user where guid = #{guid}
+
+        <!--select tkey,uid,cid from members where 1 = 1-->
+
+        <!--<if test="uids != null">-->
+        <!--and uid in-->
+        <!--<foreach collection="uids" item="item" index="index"-->
+        <!--open="(" separator="," close=")">#{item}-->
+        <!--</foreach>-->
+
+        <!--</if>-->
+
+        <!--order by tkey desc-->
+
+    </select>
+
+</mapper>

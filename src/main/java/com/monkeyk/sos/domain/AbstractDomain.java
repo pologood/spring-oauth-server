@@ -37,11 +37,11 @@ public abstract class AbstractDomain implements Serializable {
     public AbstractDomain() {
     }
 
-    public int id() {
+    public int getId() {
         return id;
     }
 
-    public void id(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

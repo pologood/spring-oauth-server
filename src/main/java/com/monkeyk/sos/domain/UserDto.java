@@ -9,16 +9,16 @@
  * it only in accordance with the terms of the license agreement you
  * entered into with MONKEYK Information Technology Co. Ltd.
  */
-package com.monkeyk.sos.domain.dto;
+package com.monkeyk.sos.domain;
+
+import com.monkeyk.sos.domain.user.Privilege;
+import com.monkeyk.sos.domain.user.User;
+import com.monkeyk.sos.infrastructure.DateUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.monkeyk.sos.domain.user.Privilege;
-import com.monkeyk.sos.domain.user.User;
-import com.monkeyk.sos.infrastructure.DateUtils;
 
 /**
  * 2016/3/12
@@ -27,6 +27,7 @@ import com.monkeyk.sos.infrastructure.DateUtils;
  */
 public class UserDto implements Serializable {
     private static final long serialVersionUID = -2502329463915439215L;
+
 
 
     private String guid;

@@ -10,11 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Spring Security中的 UserDetails 实现
- *
- * @author Shengzhao Li
- */
+
 public class WdcyUserDetails implements UserDetails {
 
     private static final long serialVersionUID = 3957586021470480642L;
