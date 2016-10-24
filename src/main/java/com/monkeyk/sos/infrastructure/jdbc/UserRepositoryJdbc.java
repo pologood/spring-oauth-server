@@ -36,7 +36,6 @@ import com.monkeyk.sos.domain.user.UserRepository;
 @Repository("userRepositoryJdbc")
 public class UserRepositoryJdbc implements UserRepository {
 
-
     private static UserRowMapper userRowMapper = new UserRowMapper();
 
     @Autowired
@@ -111,7 +110,7 @@ public class UserRepositoryJdbc implements UserRepository {
     }
 
     @Override
-    @Cacheable(value = USER_CACHE, key = "#username")
+    //@Cacheable(value = USER_CACHE, key = "#username")
     public User findByUsername(String username) {
         final String sql = " select * from user_ where username = ? and archived = 0 ";
         final List<User> list = this.jdbcTemplate.query(sql, new Object[]{username}, userRowMapper);

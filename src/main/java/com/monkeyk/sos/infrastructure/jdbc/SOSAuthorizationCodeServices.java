@@ -23,7 +23,7 @@ public class SOSAuthorizationCodeServices extends JdbcAuthorizationCodeServices 
 
 
     @Override
-    @Cacheable(value = AUTHORIZATION_CODE_CACHE, key = "#code")
+    //@Cacheable(value = AUTHORIZATION_CODE_CACHE, key = "#code")
     protected void store(String code, OAuth2Authentication authentication) {
         super.store(code, authentication);
     }

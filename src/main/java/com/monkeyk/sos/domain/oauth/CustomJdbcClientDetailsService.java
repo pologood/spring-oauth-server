@@ -33,7 +33,7 @@ public class CustomJdbcClientDetailsService extends JdbcClientDetailsService {
 
 
     @Override
-    @Cacheable(value = CLIENT_DETAILS_CACHE, key = "#clientId")
+    //@Cacheable(value = CLIENT_DETAILS_CACHE, key = "#clientId")
     public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
         return super.loadClientByClientId(clientId);
     }

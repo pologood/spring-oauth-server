@@ -77,17 +77,6 @@ public class OAuthRestController implements InitializingBean, ApplicationContext
     private WebResponseExceptionTranslator providerExceptionHandler = new DefaultWebResponseExceptionTranslator();
 
 
-    @RequestMapping(value="/login",method = RequestMethod.POST)
-    @ResponseBody
-    public String login(HttpServletResponse response){
-        System.out.println("login invoked");
-        try {
-            response.sendRedirect("index.jsp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
     @RequestMapping(value="/hh.do",method = RequestMethod.POST)
     @ResponseBody

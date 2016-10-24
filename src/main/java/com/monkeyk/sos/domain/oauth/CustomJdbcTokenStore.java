@@ -26,7 +26,7 @@ public class CustomJdbcTokenStore extends JdbcTokenStore {
     }
 
 
-    @Cacheable(value = ACCESS_TOKEN_CACHE, key = "#tokenValue")
+    //@Cacheable(value = ACCESS_TOKEN_CACHE, key = "#tokenValue")
     public OAuth2AccessToken readAccessToken(String tokenValue) {
         return super.readAccessToken(tokenValue);
     }
@@ -38,7 +38,7 @@ public class CustomJdbcTokenStore extends JdbcTokenStore {
     }
 
 
-    @Cacheable(value = REFRESH_TOKEN_CACHE, key = "#token")
+    //@Cacheable(value = REFRESH_TOKEN_CACHE, key = "#token")
     public OAuth2RefreshToken readRefreshToken(String token) {
         return super.readRefreshToken(token);
     }

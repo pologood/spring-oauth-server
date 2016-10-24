@@ -18,7 +18,7 @@
 
     <!--  静态资源, 忽略 -->
     <!--static url pattern-->
-    <http pattern="/resources/**" security="none"/>
+    <http pattern="/resources/api" security="none"/>
     <http pattern="/oauth/rest_token" security="none"/>
 
 
@@ -28,7 +28,7 @@
     -->
 
     <!--
-        Spring MVC的注解配置, 注意: 该配置不能放置在 mkk-servlet.xml 文件中
+        Spring MVC的注解配置, 注意: 该配置不能放置在 mvc-dispatcher-servlet.xml 文件中
     -->
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
@@ -178,7 +178,7 @@
     <oauth2:authorization-server client-details-service-ref="clientDetailsService" token-services-ref="tokenServices"
                                  user-approval-handler-ref="oauthUserApprovalHandler"
                                  user-approval-page="oauth_approval"
-                                 error-page="oauth_error" authorization-endpoint-url="/oauth2/auth"  >
+                                 error-page="oauth_error" authorization-endpoint-url="/oauth2/auth">
         <oauth2:authorization-code authorization-code-services-ref="jdbcAuthorizationCodeServices"/>
         <oauth2:implicit/>
         <oauth2:refresh-token/>
@@ -220,10 +220,10 @@
     <http disable-url-rewriting="true" use-expressions="false"
           authentication-manager-ref="authenticationManager">
         <intercept-url pattern="/oauth/**" access="ROLE_USER,ROLE_UNITY,ROLE_MOBILE"/>
-        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <form-login authentication-failure-url="/login.jsp?authentication_error=1" default-target-url="/index.jsp"
-                    login-page="/login.jsp" login-processing-url="/login"/>
+                    login-page="/login.jsp" login-processing-url="/login.do"/>
         <logout logout-success-url="/index.jsp" logout-url="/logout.do"/>
         <access-denied-handler error-page="/login.jsp?authorization_error=2"/>
         <anonymous/>
