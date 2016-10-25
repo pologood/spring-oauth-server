@@ -15,6 +15,13 @@ public class OauthClientDetailDaoImpl extends BaseDao<OauthClientDetails, String
 
     private final String namespace = OauthClientDetails.class.getName();
 
+
+    @Override
+    public OauthClientDetails findById(String s) {
+        OauthClientDetails details = super.findById(s);
+        return details;
+    }
+
     @Override
     public List<OauthClientDetails> findAll() {
         return sqlSession.selectList(namespace + ".findAll");

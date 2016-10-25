@@ -24,10 +24,6 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements IUserDao {
 
         User user = sqlSession.selectOne(namespace + ".findByGuid", guid);
 
-        //TODO finish this in service layer
-        //user.privileges().addAll(findPrivileges(user.id()));
-
-
         return user;
     }
 

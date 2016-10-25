@@ -18,6 +18,7 @@ import com.monkeyk.sos.utils.GuidGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ import static org.testng.Assert.*;
 public class OauthRepositoryJdbcTest extends AbstractRepositoryTest {
 
 
-    @Autowired
+    @Resource
     private IOauthClientDetailsDao oauthClientDetailsDao;
 
 
@@ -47,7 +48,9 @@ public class OauthRepositoryJdbcTest extends AbstractRepositoryTest {
 
         final String clientId = GuidGenerator.generate();
 
-        OauthClientDetails clientDetails = new OauthClientDetails().setClientId(clientId);
+        OauthClientDetails clientDetails = new OauthClientDetails();
+        clientDetails.setClientId(clientId);
+
         oauthClientDetailsDao.save(clientDetails);
 
         final OauthClientDetails oauthClientDetails = oauthClientDetailsDao.findById(clientId);

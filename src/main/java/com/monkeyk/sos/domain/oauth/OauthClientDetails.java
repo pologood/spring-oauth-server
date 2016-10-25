@@ -93,7 +93,7 @@ public class OauthClientDetails implements Serializable {
         return createTime;
     }
 
-    public OauthClientDetails createTime(Date createTime) {
+    public OauthClientDetails setCreateTime(Date createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -174,14 +174,8 @@ public class OauthClientDetails implements Serializable {
         return createTime;
     }
 
-    public OauthClientDetails setCreateTime(Date createTime) {
-        this.createTime = createTime;
-        return this;
-    }
-
-    public OauthClientDetails setClientId(String clientId) {
+    public void setClientId(String clientId) {
         this.clientId = clientId;
-        return this;
     }
 
     public OauthClientDetails setResourceIds(String resourceIds) {

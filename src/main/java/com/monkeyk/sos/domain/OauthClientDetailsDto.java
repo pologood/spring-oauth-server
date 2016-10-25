@@ -209,11 +209,11 @@ public class OauthClientDetailsDto implements Serializable {
 
     public OauthClientDetails createDomain() {
         OauthClientDetails clientDetails = new OauthClientDetails()
-                .setClientId(clientId)
                 .setClientSecret(clientSecret)
                 .setResourceIds(resourceIds)
                 .setAuthorizedGrantTypes(authorizedGrantTypes)
                 .setScope(scope);
+        clientDetails.setClientId(clientId);
 
         if (StringUtils.isNotEmpty(webServerRedirectUri)) {
             clientDetails.setWebServerRedirectUri(webServerRedirectUri);

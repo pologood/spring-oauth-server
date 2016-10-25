@@ -120,12 +120,15 @@
 
     <!--Config token services-->
     <!--<beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore"/>-->
-    <beans:bean id="tokenStore" class="com.monkeyk.sos.domain.oauth.CustomJdbcTokenStore">
-        <beans:constructor-arg index="0" ref="dataSource"/>
+    <beans:bean id="oauthTokenService" class="com.monkeyk.sos.service.impl.OauthTokenServiceImpl">
+        <beans:property name="authenticationKeyGenerator" ref="authenticationKeyGenerator"/>
     </beans:bean>
 
+    <beans:bean id="authenticationKeyGenerator"
+                class="org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator"/>
+
     <beans:bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
-        <beans:property name="tokenStore" ref="tokenStore"/>
+        <beans:property name="tokenStore" ref="oauthTokenService"/>
         <beans:property name="clientDetailsService" ref="clientDetailsService"/>
         <beans:property name="supportRefreshToken" value="true"/>
         <beans:property name="accessTokenValiditySeconds" value="7200"/>
@@ -145,7 +148,7 @@
 
 
     <beans:bean id="oauthUserApprovalHandler" class="com.monkeyk.sos.web.oauth.OauthUserApprovalHandler">
-        <beans:property name="tokenStore" ref="tokenStore"/>
+        <beans:property name="tokenStore" ref="oauthTokenService"/>
         <beans:property name="clientDetailsService" ref="clientDetailsService"/>
         <beans:property name="requestFactory" ref="oAuth2RequestFactory"/>
         <beans:property name="oauthService" ref="oauthService"/>
@@ -181,7 +184,7 @@
     <oauth2:authorization-server client-details-service-ref="clientDetailsService" token-services-ref="tokenServices"
                                  user-approval-handler-ref="oauthUserApprovalHandler"
                                  user-approval-page="oauth_approval"
-                                 error-page="oauth_error" >
+                                 error-page="oauth_error">
         <oauth2:authorization-code authorization-code-services-ref="authorizationCodeService"/>
         <oauth2:implicit/>
         <oauth2:refresh-token/>

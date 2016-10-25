@@ -60,7 +60,7 @@
     <select id="findById" parameterType="long" resultMap="userMap">
     </select>
 
-    <select id="findByUsername" parameterType="String" resultType="com.monkeyk.sos.domain.user.User">
+    <select id="findByUsername" parameterType="String" resultMap="userMap">
         select * from user where username = #{username} and archived = 0
     </select>
 
