@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Shengzhao Li
+ * @author yaoguang.du@duolabao.com
  */
 public class OauthClientDetailsDto implements Serializable {
 
@@ -45,23 +45,23 @@ public class OauthClientDetailsDto implements Serializable {
     }
 
     public OauthClientDetailsDto(OauthClientDetails clientDetails) {
-        this.clientId = clientDetails.clientId();
-        this.clientSecret = clientDetails.clientSecret();
-        this.scope = clientDetails.scope();
+        this.clientId = clientDetails.getClientId();
+        this.clientSecret = clientDetails.getClientSecret();
+        this.scope = clientDetails.getScope();
 
         this.createTime = DateUtils.toDateTime(clientDetails.createTime());
-        this.archived = clientDetails.archived();
-        this.resourceIds = clientDetails.resourceIds();
+        this.archived = clientDetails.isArchived();
+        this.resourceIds = clientDetails.getResourceIds();
 
-        this.webServerRedirectUri = clientDetails.webServerRedirectUri();
-        this.authorities = clientDetails.authorities();
-        this.accessTokenValidity = clientDetails.accessTokenValidity();
+        this.webServerRedirectUri = clientDetails.getWebServerRedirectUri();
+        this.authorities = clientDetails.getAuthorities();
+        this.accessTokenValidity = clientDetails.getAccessTokenValidity();
 
-        this.refreshTokenValidity = clientDetails.refreshTokenValidity();
-        this.additionalInformation = clientDetails.additionalInformation();
-        this.trusted = clientDetails.trusted();
+        this.refreshTokenValidity = clientDetails.getRefreshTokenValidity();
+        this.additionalInformation = clientDetails.getAdditionalInformation();
+        this.trusted = clientDetails.isTrusted();
 
-        this.authorizedGrantTypes = clientDetails.authorizedGrantTypes();
+        this.authorizedGrantTypes = clientDetails.getAuthorizedGrantTypes();
     }
 
 
@@ -209,26 +209,26 @@ public class OauthClientDetailsDto implements Serializable {
 
     public OauthClientDetails createDomain() {
         OauthClientDetails clientDetails = new OauthClientDetails()
-                .clientId(clientId)
-                .clientSecret(clientSecret)
-                .resourceIds(resourceIds)
-                .authorizedGrantTypes(authorizedGrantTypes)
-                .scope(scope);
+                .setClientId(clientId)
+                .setClientSecret(clientSecret)
+                .setResourceIds(resourceIds)
+                .setAuthorizedGrantTypes(authorizedGrantTypes)
+                .setScope(scope);
 
         if (StringUtils.isNotEmpty(webServerRedirectUri)) {
-            clientDetails.webServerRedirectUri(webServerRedirectUri);
+            clientDetails.setWebServerRedirectUri(webServerRedirectUri);
         }
 
         if (StringUtils.isNotEmpty(authorities)) {
-            clientDetails.authorities(authorities);
+            clientDetails.setAuthorities(authorities);
         }
 
         clientDetails.accessTokenValidity(accessTokenValidity)
-                .refreshTokenValidity(refreshTokenValidity)
-                .trusted(trusted);
+                .setRefreshTokenValidity(refreshTokenValidity)
+                .setTrusted(trusted);
 
         if (StringUtils.isNotEmpty(additionalInformation)) {
-            clientDetails.additionalInformation(additionalInformation);
+            clientDetails.setAdditionalInformation(additionalInformation);
         }
 
         return clientDetails;

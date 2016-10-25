@@ -33,7 +33,6 @@ public class UserController {
      */
     @RequestMapping("overview")
     public String overview(UserOverviewDto overviewDto, Model model) {
-        logger.info("enter user/overview");
         overviewDto = userService.loadUserOverviewDto(overviewDto);
         model.addAttribute("overviewDto", overviewDto);
         return "user_overview";

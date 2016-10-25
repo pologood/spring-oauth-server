@@ -76,16 +76,16 @@ public class OauthClientDetails implements Serializable {
     public OauthClientDetails() {
     }
 
-    public String autoApprove() {
+    public String getAutoApprove() {
         return autoApprove;
     }
 
-    public OauthClientDetails autoApprove(String autoApprove) {
+    public OauthClientDetails setAutoApprove(String autoApprove) {
         this.autoApprove = autoApprove;
         return this;
     }
 
-    public boolean trusted() {
+    public boolean isTrusted() {
         return trusted;
     }
 
@@ -98,47 +98,47 @@ public class OauthClientDetails implements Serializable {
         return this;
     }
 
-    public boolean archived() {
+    public boolean isArchived() {
         return archived;
     }
 
-    public String clientId() {
+    public String getClientId() {
         return clientId;
     }
 
-    public String resourceIds() {
+    public String getResourceIds() {
         return resourceIds;
     }
 
-    public String clientSecret() {
+    public String getClientSecret() {
         return clientSecret;
     }
 
-    public String scope() {
+    public String getScope() {
         return scope;
     }
 
-    public String authorizedGrantTypes() {
+    public String getAuthorizedGrantTypes() {
         return authorizedGrantTypes;
     }
 
-    public String webServerRedirectUri() {
+    public String getWebServerRedirectUri() {
         return webServerRedirectUri;
     }
 
-    public String authorities() {
+    public String getAuthorities() {
         return authorities;
     }
 
-    public Integer accessTokenValidity() {
+    public Integer getAccessTokenValidity() {
         return accessTokenValidity;
     }
 
-    public Integer refreshTokenValidity() {
+    public Integer getRefreshTokenValidity() {
         return refreshTokenValidity;
     }
 
-    public String additionalInformation() {
+    public String getAdditionalInformation() {
         return additionalInformation;
     }
 
@@ -164,37 +164,52 @@ public class OauthClientDetails implements Serializable {
         return sb.toString();
     }
 
-    public OauthClientDetails clientId(String clientId) {
-        this.clientId = clientId;
-        return this;
-    }
 
-    public OauthClientDetails clientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-        return this;
-    }
-
-    public OauthClientDetails resourceIds(String resourceIds) {
-        this.resourceIds = resourceIds;
-        return this;
-    }
-
-    public OauthClientDetails authorizedGrantTypes(String authorizedGrantTypes) {
+    public OauthClientDetails setAuthorizedGrantTypes(String authorizedGrantTypes) {
         this.authorizedGrantTypes = authorizedGrantTypes;
         return this;
     }
 
-    public OauthClientDetails scope(String scope) {
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public OauthClientDetails setCreateTime(Date createTime) {
+        this.createTime = createTime;
+        return this;
+    }
+
+    public OauthClientDetails setClientId(String clientId) {
+        this.clientId = clientId;
+        return this;
+    }
+
+    public OauthClientDetails setResourceIds(String resourceIds) {
+        this.resourceIds = resourceIds;
+        return this;
+    }
+
+    public OauthClientDetails setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+        return this;
+    }
+
+    public OauthClientDetails setAccessTokenValidity(Integer accessTokenValidity) {
+        this.accessTokenValidity = accessTokenValidity;
+        return this;
+    }
+
+    public OauthClientDetails setScope(String scope) {
         this.scope = scope;
         return this;
     }
 
-    public OauthClientDetails webServerRedirectUri(String webServerRedirectUri) {
+    public OauthClientDetails setWebServerRedirectUri(String webServerRedirectUri) {
         this.webServerRedirectUri = webServerRedirectUri;
         return this;
     }
 
-    public OauthClientDetails authorities(String authorities) {
+    public OauthClientDetails setAuthorities(String authorities) {
         this.authorities = authorities;
         return this;
     }
@@ -204,22 +219,22 @@ public class OauthClientDetails implements Serializable {
         return this;
     }
 
-    public OauthClientDetails refreshTokenValidity(Integer refreshTokenValidity) {
+    public OauthClientDetails setRefreshTokenValidity(Integer refreshTokenValidity) {
         this.refreshTokenValidity = refreshTokenValidity;
         return this;
     }
 
-    public OauthClientDetails trusted(boolean trusted) {
+    public OauthClientDetails setTrusted(boolean trusted) {
         this.trusted = trusted;
         return this;
     }
 
-    public OauthClientDetails additionalInformation(String additionalInformation) {
+    public OauthClientDetails setAdditionalInformation(String additionalInformation) {
         this.additionalInformation = additionalInformation;
         return this;
     }
 
-    public OauthClientDetails archived(boolean archived) {
+    public OauthClientDetails setArchived(boolean archived) {
         this.archived = archived;
         return this;
     }

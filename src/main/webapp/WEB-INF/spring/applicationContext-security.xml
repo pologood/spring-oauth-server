@@ -38,7 +38,7 @@
      一般使用时这里不需要修改, 直接使用即可
     -->
     <http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="oauth2AuthenticationManager"
-          entry-point-ref="oauth2AuthenticationEntryPoint"  use-expressions="false">
+          entry-point-ref="oauth2AuthenticationEntryPoint" use-expressions="false">
         <intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY"/>
         <anonymous enabled="false"/>
         <http-basic entry-point-ref="oauth2AuthenticationEntryPoint"/>
@@ -64,7 +64,7 @@
         /m/**  处理资源 mobileResourceServer
     -->
     <!--unity http configuration-->
-    <http  pattern="/unity/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint"
+    <http pattern="/unity/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint"
           access-decision-manager-ref="oauth2AccessDecisionManager" use-expressions="false">
         <anonymous enabled="false"/>
 
@@ -116,10 +116,7 @@
     <!--
         管理 ClientDetails
     -->
-    <beans:bean id="clientDetailsService" class="com.monkeyk.sos.domain.oauth.CustomJdbcClientDetailsService">
-        <beans:constructor-arg index="0" ref="dataSource"/>
-    </beans:bean>
-
+    <beans:bean id="clientDetailsService" class="com.monkeyk.sos.service.impl.ClientDetailsServiceImpl"/>
 
     <!--Config token services-->
     <!--<beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore"/>-->
@@ -131,7 +128,7 @@
         <beans:property name="tokenStore" ref="tokenStore"/>
         <beans:property name="clientDetailsService" ref="clientDetailsService"/>
         <beans:property name="supportRefreshToken" value="true"/>
-        <beans:property name="accessTokenValiditySeconds" value="60"/>
+        <beans:property name="accessTokenValiditySeconds" value="7200"/>
     </beans:bean>
 
     <!--<global-method-security pre-post-annotations="enabled" proxy-target-class="true">-->
@@ -162,10 +159,15 @@
     <!--class="org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices">-->
     <!--<beans:constructor-arg index="0" ref="dataSource"/>-->
     <!--</beans:bean>-->
-    <beans:bean id="jdbcAuthorizationCodeServices"
-                class="com.monkeyk.sos.infrastructure.jdbc.SOSAuthorizationCodeServices">
-        <beans:constructor-arg index="0" ref="dataSource"/>
-    </beans:bean>
+
+
+    <!--<beans:bean id="jdbcAuthorizationCodeServices"-->
+    <!--class="com.monkeyk.sos.infrastructure.jdbc.SOSAuthorizationCodeServices">-->
+    <!--<beans:constructor-arg index="0" ref="dataSource"/>-->
+    <!--</beans:bean>-->
+    <beans:bean id="authorizationCodeService"
+                class="com.monkeyk.sos.service.impl.AuthorizationCodeServiceImpl"/>
+
 
     <!--
         Security OAuth Flow的核心配置
@@ -174,12 +176,13 @@
         默认支持OAuth2提供的5类grant_type, 若不需要任何一类, 将其配置注释掉(或删掉)即可.
         若需要自定义 authorization url, 在 <oauth2:authorization-server > 配置中添加authorization-endpoint-url,如: authorization-endpoint-url="/oauth2/authorization"
         若需要自定义 token url, 在 <oauth2:authorization-server > 配置中添加token-endpoint-url配置, 如:token-endpoint-url="/oauth2/my_token"
+        authorization-endpoint-url="/oauth2/auth"
     -->
     <oauth2:authorization-server client-details-service-ref="clientDetailsService" token-services-ref="tokenServices"
                                  user-approval-handler-ref="oauthUserApprovalHandler"
                                  user-approval-page="oauth_approval"
-                                 error-page="oauth_error" authorization-endpoint-url="/oauth2/auth">
-        <oauth2:authorization-code authorization-code-services-ref="jdbcAuthorizationCodeServices"/>
+                                 error-page="oauth_error" >
+        <oauth2:authorization-code authorization-code-services-ref="authorizationCodeService"/>
         <oauth2:implicit/>
         <oauth2:refresh-token/>
         <oauth2:client-credentials/>

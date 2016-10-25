@@ -47,13 +47,13 @@ public class OauthRepositoryJdbcTest extends AbstractRepositoryTest {
 
         final String clientId = GuidGenerator.generate();
 
-        OauthClientDetails clientDetails = new OauthClientDetails().clientId(clientId);
+        OauthClientDetails clientDetails = new OauthClientDetails().setClientId(clientId);
         oauthClientDetailsDao.save(clientDetails);
 
         final OauthClientDetails oauthClientDetails = oauthClientDetailsDao.findById(clientId);
         assertNotNull(oauthClientDetails);
-        assertNotNull(oauthClientDetails.clientId());
-        assertNull(oauthClientDetails.clientSecret());
+        assertNotNull(oauthClientDetails.getClientId());
+        assertNull(oauthClientDetails.getClientSecret());
 
     }
 
