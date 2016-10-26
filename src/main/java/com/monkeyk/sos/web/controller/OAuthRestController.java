@@ -78,7 +78,7 @@ public class OAuthRestController implements InitializingBean, ApplicationContext
 
 
 
-    @RequestMapping(value="/hh.do",method = RequestMethod.POST)
+    @RequestMapping(value="/login.do",method = RequestMethod.POST)
     @ResponseBody
     public String h(){
         System.out.println("hh.do invoked");

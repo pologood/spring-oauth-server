@@ -13,13 +13,13 @@
     </insert>
 
     <delete id="deleteByCode" parameterType="String">
-        delete from auth_code where code = #{code}
+        delete from oauth_code where code = #{code}
     </delete>
 
 
     <select id="findByCode" parameterType="String" resultMap="authCodeMap">
 
-        select * from auth_code where code = #{code}
+        select * from oauth_code where code = #{code}
 
     </select>
 

@@ -7,7 +7,7 @@ public enum Privilege {
 //    MOBILE
 
 
-    USER("USER"), UNITY("UNITY"), MOBILE("MOBILE");
+    USER("USER"), CUSTOMER("CUSTOMER");
 
     private Privilege(String privilege) {
         this.privilege = privilege;

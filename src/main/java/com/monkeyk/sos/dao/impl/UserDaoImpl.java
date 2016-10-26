@@ -28,8 +28,8 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements IUserDao {
     }
 
     @Override
-    public List<User> findUsersByUsername(String userName) {
-        return sqlSession.selectList(namespace + ".findUsersByUsername", userName);
+    public List<User> findUsersByUsername(String username) {
+        return sqlSession.selectList(namespace + ".findUsersByUsername", username);
     }
 
     @Override

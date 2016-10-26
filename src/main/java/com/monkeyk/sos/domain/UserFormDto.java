@@ -20,7 +20,7 @@ public class UserFormDto extends UserDto {
 
 
     public Privilege[] getAllPrivileges() {
-        return new Privilege[]{Privilege.MOBILE, Privilege.UNITY};
+        return new Privilege[]{Privilege.CUSTOMER};
     }
 
     public String getPassword() {

@@ -68,24 +68,24 @@
           access-decision-manager-ref="oauth2AccessDecisionManager" use-expressions="false">
         <anonymous enabled="false"/>
 
-        <intercept-url pattern="/unity/**" access="ROLE_UNITY,SCOPE_READ"/>
+        <intercept-url pattern="/unity/**" access="ROLE_CUSTOMER,SCOPE_READ"/>
 
-        <custom-filter ref="unityResourceServer" before="PRE_AUTH_FILTER"/>
+        <custom-filter ref="customerResourceServer" before="PRE_AUTH_FILTER"/>
         <access-denied-handler ref="oauth2AccessDeniedHandler"/>
         <csrf disabled="true"/>
     </http>
 
-    <!--mobile http configuration-->
-    <http pattern="/m/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint"
-          access-decision-manager-ref="oauth2AccessDecisionManager" use-expressions="false">
-        <anonymous enabled="false"/>
+    <!--&lt;!&ndash;mobile http configuration&ndash;&gt;-->
+    <!--<http pattern="/m/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint"-->
+    <!--access-decision-manager-ref="oauth2AccessDecisionManager" use-expressions="false">-->
+    <!--<anonymous enabled="false"/>-->
 
-        <intercept-url pattern="/m/**" access="ROLE_MOBILE,SCOPE_READ"/>
+    <!--<intercept-url pattern="/m/**" access="ROLE_MOBILE,SCOPE_READ"/>-->
 
-        <custom-filter ref="mobileResourceServer" before="PRE_AUTH_FILTER"/>
-        <access-denied-handler ref="oauth2AccessDeniedHandler"/>
-        <csrf disabled="true"/>
-    </http>
+    <!--<custom-filter ref="mobileResourceServer" before="PRE_AUTH_FILTER"/>-->
+    <!--<access-denied-handler ref="oauth2AccessDeniedHandler"/>-->
+    <!--<csrf disabled="true"/>-->
+    <!--</http>-->
 
     <!--
         每一个资源(resource)的定义, resource-id必须唯一, OauthClientDetails中的resourceIds属性的值由此来的,
@@ -93,10 +93,11 @@
         每一个定义会在Security Flow中添加一个位于 PRE_AUTH_FILTER 之前的Filter
     -->
     <!--unity resource server filter-->
-    <oauth2:resource-server id="unityResourceServer" resource-id="unity-resource" token-services-ref="tokenServices"/>
+    <oauth2:resource-server id="customerResourceServer" resource-id="customer-resource"
+                            token-services-ref="tokenServices"/>
 
     <!--mobile resource server filter-->
-    <oauth2:resource-server id="mobileResourceServer" resource-id="mobile-resource" token-services-ref="tokenServices"/>
+    <!--<oauth2:resource-server id="mobileResourceServer" resource-id="mobile-resource" token-services-ref="tokenServices"/>-->
 
     <!--Config ClientDetailsService-->
     <!--<oauth2:client-details-service id="clientDetailsService">-->
@@ -225,8 +226,9 @@
 
     <http disable-url-rewriting="true" use-expressions="false"
           authentication-manager-ref="authenticationManager">
-        <intercept-url pattern="/oauth/**" access="ROLE_USER,ROLE_UNITY,ROLE_MOBILE"/>
+        <intercept-url pattern="/oauth/**" access="ROLE_USER,ROLE_CUSTOMER"/>
         <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
 
         <form-login authentication-failure-url="/login.jsp?authentication_error=1" default-target-url="/index.jsp"
                     login-page="/login.jsp" login-processing-url="/login.do"/>

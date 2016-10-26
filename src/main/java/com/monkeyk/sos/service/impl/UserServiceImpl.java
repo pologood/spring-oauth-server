@@ -9,6 +9,8 @@ import com.monkeyk.sos.domain.UserOverviewDto;
 import com.monkeyk.sos.domain.shared.security.WdcyUserDetails;
 import com.monkeyk.sos.domain.user.User;
 import com.monkeyk.sos.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,10 +26,12 @@ import java.util.List;
 /**
  * 处理用户, 账号, 安全相关业务
  *
- * @author Shengzhao Li
+ * @author yaoguang.du@duolabao.com
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Resource
     private IUserDao userDao;
@@ -37,65 +41,105 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
-        if (user == null || user.isArchived()) {
-            throw new UsernameNotFoundException("Not found any user for username[" + username + "]");
-        }
+        try {
+            User user = userDao.findByUsername(username);
+            if (user == null || user.isArchived()) {
+                throw new UsernameNotFoundException("Not found any user for username[" + username + "]");
+            }
 
-        return new WdcyUserDetails(findPrivilieges(user));
+            return new WdcyUserDetails(findPrivilieges(user));
+        } catch (Exception e) {
+            logger.error("exception occurred", e);
+        }
+        return null;
+
     }
 
 
-    private User findPrivilieges(User user){
-        user.getPrivileges().addAll(privilegeDao.findByUserId(user.getId()));
+    private User findPrivilieges(User user) {
+        try {
+            user.getPrivileges().addAll(privilegeDao.findByUserId(user.getId()));
+            return user;
+        } catch (Exception e) {
+            logger.error("exception occurred", e);
+        }
         return user;
     }
 
     @Override
     public UserJsonDto loadCurrentUserJsonDto() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final Object principal = authentication.getPrincipal();
+        try {
+            final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            final Object principal = authentication.getPrincipal();
 
-        if (authentication instanceof OAuth2Authentication &&
-                (principal instanceof String || principal instanceof org.springframework.security.core.userdetails.User)) {
-            return loadOauthUserJsonDto((OAuth2Authentication) authentication);
-        } else {
-            final WdcyUserDetails userDetails = (WdcyUserDetails) principal;
+            if (authentication instanceof OAuth2Authentication &&
+                    (principal instanceof String || principal instanceof org.springframework.security.core.userdetails.User)) {
+                return loadOauthUserJsonDto((OAuth2Authentication) authentication);
+            } else {
+                final WdcyUserDetails userDetails = (WdcyUserDetails) principal;
 
-            return new UserJsonDto(findPrivilieges(userDao.findByGuid(userDetails.user().getGuid())));
+                return new UserJsonDto(findPrivilieges(userDao.findByGuid(userDetails.user().getGuid())));
+            }
+        } catch (Exception e) {
+            logger.error("exception occurred", e);
         }
+        return null;
+
     }
 
     @Override
     public UserOverviewDto loadUserOverviewDto(UserOverviewDto overviewDto) {
-        List<User> users = userDao.findUsersByUsername(overviewDto.getUsername());
-        overviewDto.setUserDtos(UserDto.toDtos(users));
-        return overviewDto;
+        try {
+            List<User> users = userDao.findUsersByUsername(overviewDto.getUsername());
+            overviewDto.setUserDtos(UserDto.toDtos(users));
+            return overviewDto;
+        } catch (Exception e) {
+            logger.error("exception occurred", e);
+        }
+
+        return null;
     }
 
     @Override
     public boolean isExistedUsername(String username) {
-        final User user = userDao.findByUsername(username);
-        return user != null;
+        try {
+            final User user = userDao.findByUsername(username);
+            return user != null;
+        } catch (Exception e) {
+            logger.error("exception occurred", e);
+        }
+        return false;
     }
 
     @Override
     public String saveUser(UserFormDto formDto) {
-        User user = formDto.newUser();
-        userDao.saveUser(user);
-        return user.getGuid();
+        try {
+            User user = formDto.newUser();
+            userDao.saveUser(user);
+            return user.getGuid();
+        } catch (Exception e) {
+            logger.error("exception occurred", e);
+        }
+        return null;
     }
 
 
     private UserJsonDto loadOauthUserJsonDto(OAuth2Authentication oAuth2Authentication) {
-        UserJsonDto userJsonDto = new UserJsonDto();
-        userJsonDto.setUsername(oAuth2Authentication.getName());
+        try {
+            UserJsonDto userJsonDto = new UserJsonDto();
+            userJsonDto.setUsername(oAuth2Authentication.getName());
 
-        final Collection<GrantedAuthority> authorities = oAuth2Authentication.getAuthorities();
-        for (GrantedAuthority authority : authorities) {
-            userJsonDto.getPrivileges().add(authority.getAuthority());
+            final Collection<GrantedAuthority> authorities = oAuth2Authentication.getAuthorities();
+            for (GrantedAuthority authority : authorities) {
+                userJsonDto.getPrivileges().add(authority.getAuthority());
+            }
+
+            return userJsonDto;
+        } catch (Exception e) {
+            logger.error("exception occurred", e);
+
         }
+        return null;
 
-        return userJsonDto;
     }
 }

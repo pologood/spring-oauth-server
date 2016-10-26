@@ -60,11 +60,11 @@
     <select id="findById" parameterType="long" resultMap="userMap">
     </select>
 
-    <select id="findByUsername" parameterType="String" resultMap="userMap">
+    <select id="findByUsername" parameterType="map" resultMap="userMap">
         select * from user where username = #{username} and archived = 0
     </select>
 
-    <select id="findUsersByUsername" parameterType="String" resultMap="userMap">
+    <select id="findUsersByUsername" parameterType="map" resultMap="userMap">
         select * from user
 
         where 1=1

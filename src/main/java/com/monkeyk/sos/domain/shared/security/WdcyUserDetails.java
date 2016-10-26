@@ -35,8 +35,7 @@ public class WdcyUserDetails implements UserDetails {
         this.grantedAuthorities.add(DEFAULT_USER_ROLE);
         //default user have all privileges
         if (user.isDefaultUser()) {
-            this.grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + Privilege.UNITY.name()));
-            this.grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + Privilege.MOBILE.name()));
+            this.grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + Privilege.CUSTOMER.name()));
         } else {
             final List<Privilege> privileges = user.getPrivileges();
             for (Privilege privilege : privileges) {
