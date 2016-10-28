@@ -39,7 +39,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
@@ -77,13 +79,12 @@ public class OAuthRestController implements InitializingBean, ApplicationContext
     private WebResponseExceptionTranslator providerExceptionHandler = new DefaultWebResponseExceptionTranslator();
 
 
-
-    @RequestMapping(value="/login.do",method = RequestMethod.POST)
-    @ResponseBody
-    public String h(){
-        System.out.println("hh.do invoked");
-        return "";
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ModelAndView h(HttpServletRequest request, HttpServletResponse response) {
+//
+//        return new ModelAndView("/login.jsp");
+//    }
 
     @RequestMapping(value = "/oauth/rest_token", method = RequestMethod.POST)
     @ResponseBody
