@@ -86,6 +86,9 @@ public class OAuthRestController implements InitializingBean, ApplicationContext
 //        return new ModelAndView("/login.jsp");
 //    }
 
+
+
+
     @RequestMapping(value = "/oauth/rest_token", method = RequestMethod.POST)
     @ResponseBody
     public OAuth2AccessToken postAccessToken(@RequestBody Map<String, String> parameters) {

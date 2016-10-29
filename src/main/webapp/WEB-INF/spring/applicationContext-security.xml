@@ -20,7 +20,7 @@
     <!--static url pattern-->
     <http pattern="/resources/api" security="none"/>
     <http pattern="/oauth/rest_token" security="none"/>
-
+    <!--<http pattern="/login" security="none"/>-->
 
     <!--
     Oauth server start.............
@@ -232,7 +232,7 @@
 
         <form-login authentication-failure-url="/login.jsp?authentication_error=1" default-target-url="/index.jsp"
                     login-page="/login.jsp" login-processing-url="/login.do"/>
-        <logout logout-success-url="/index.jsp" logout-url="/logout.do"/>
+        <logout logout-success-url="/index.jsp" logout-url="/logout"/>
         <access-denied-handler error-page="/login.jsp?authorization_error=2"/>
         <anonymous/>
         <csrf disabled="true"/>
