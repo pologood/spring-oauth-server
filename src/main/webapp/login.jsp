@@ -21,7 +21,7 @@
                 <label for="username" class="col-sm-3 control-label">Username</label>
 
                 <div class="col-sm-9">
-                    <input type="text" id="username" name="username" value="" placeholder="Type username"
+                    <input type="text" id="username" name="username" value="" placeholder="test"
                            required="required" class="form-control"/>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <label for="password" class="col-sm-3 control-label">Password</label>
 
                 <div class="col-sm-9">
-                    <input type="password" name="password" id="password" value="" placeholder="Type password"
+                    <input type="password" name="password" id="password" value="" placeholder="test"
                            required="required" class="form-control"/>
                 </div>
             </div>

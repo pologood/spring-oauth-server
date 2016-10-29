@@ -87,12 +87,9 @@ public class OAuthRestController implements InitializingBean, ApplicationContext
 //    }
 
 
-
-
     @RequestMapping(value = "/oauth/rest_token", method = RequestMethod.POST)
     @ResponseBody
     public OAuth2AccessToken postAccessToken(@RequestBody Map<String, String> parameters) {
-
 
         String clientId = getClientId(parameters);
         ClientDetails authenticatedClient = clientDetailsService.loadClientByClientId(clientId);

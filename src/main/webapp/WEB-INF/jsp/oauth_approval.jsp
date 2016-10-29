@@ -12,7 +12,7 @@
 </head>
 <body><h1>OAuth Approval</h1>
 
-<p>Do you authorize '${authorizationRequest.clientId}' to access your protected resources?</p>
+<p>Do you authorize '' to access your protected resources?</p>
 
 <form id='confirmationForm' name='confirmationForm' action='${pageContext.request.contextPath}/oauth/authorize'
       method='post'>
