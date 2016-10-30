@@ -70,12 +70,23 @@ public class OauthController {
     AuthorizationCodeServices authorizationCodeService;
 
     @RequestMapping(value = "/oauth/authorize")
-    public ModelAndView authorize(Map<String, Object> model, @RequestParam Map<String, String> parameters,
+    public ModelAndView authorize(Map<String, Object> model, @RequestParam Map<String, String> map,
                                   SessionStatus sessionStatus, Principal principal) {
 
         // Pull out the authorization request first, using the OAuth2RequestFactory. All further logic should
         // query off of the authorization request instead of referring back to the parameters map. The contents of the
         // parameters map will be stored without change in the AuthorizationRequest object once it is created.
+
+        //Convert coming parameters to what spring-security-oauth need
+        Map<String, String> parameters = new HashMap<>();
+
+        parameters.put("client_id", map.get("appNum"));
+        parameters.put("redirect_uri", map.get("redirectUrl"));
+        parameters.put("state", map.get("state"));
+        parameters.put("response_type", map.get("responseType"));
+        parameters.put("scope", map.get("scope"));
+
+
         AuthorizationRequest authorizationRequest = oAuth2RequestFactory.createAuthorizationRequest(parameters);
 
         Set<String> responseTypes = authorizationRequest.getResponseTypes();
@@ -187,8 +198,7 @@ public class OauthController {
 //            }
 
             return getAuthorizationCodeResponse(authorizationRequest, (Authentication) principal);
-        }
-        finally {
+        } finally {
             sessionStatus.setComplete();
         }
 

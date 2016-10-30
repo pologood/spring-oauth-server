@@ -51,8 +51,13 @@
         处理grant_type=client_credentials 的逻辑
         只从请求中获取client_id与client_secret
     -->
+    <!--<beans:bean id="clientCredentialsTokenEndpointFilter"-->
+                <!--class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">-->
+        <!--<beans:property name="authenticationManager" ref="oauth2AuthenticationManager"/>-->
+    <!--</beans:bean>-->
+
     <beans:bean id="clientCredentialsTokenEndpointFilter"
-                class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
+                class="com.monkeyk.sos.web.filter.TokenEndpointFilter">
         <beans:property name="authenticationManager" ref="oauth2AuthenticationManager"/>
     </beans:bean>
 

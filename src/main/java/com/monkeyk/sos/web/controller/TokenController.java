@@ -95,12 +95,21 @@ public class TokenController {
 
     @RequestMapping(value = "/oauth/token", method = RequestMethod.POST)
     public ResponseEntity<OAuth2AccessToken> postAccessToken(Principal principal, @RequestParam
-    Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+    Map<String, String> map) throws HttpRequestMethodNotSupportedException {
 
         if (!(principal instanceof Authentication)) {
             throw new InsufficientAuthenticationException(
                     "There is no client authentication. Try adding an appropriate authentication filter.");
         }
+
+
+        Map<String, String> parameters = new HashMap<>();
+
+        parameters.put("client_id", map.get("appNum"));
+        parameters.put("client_secret", map.get("appSecretKey"));
+        parameters.put("grant_type", map.get("grantType"));
+        parameters.put("code", map.get("code"));
+        parameters.put("redirect_uri", map.get("redirectUrl"));
 
         String clientId = getClientId(principal);
         ClientDetails authenticatedClient = clientDetailsService.loadClientByClientId(clientId);
