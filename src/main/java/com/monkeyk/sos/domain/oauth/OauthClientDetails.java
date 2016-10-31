@@ -13,15 +13,53 @@ import com.monkeyk.sos.infrastructure.DateUtils;
 public class OauthClientDetails implements Serializable {
 
 
+    public String getNum() {
+        return num;
+    }
+
+    public OauthClientDetails setNum(String num) {
+        this.num = num;
+        return this;
+    }
+
+    public String getAppNum() {
+        return appNum;
+    }
+
+    public OauthClientDetails setAppNum(String appNum) {
+        this.appNum = appNum;
+        return this;
+    }
+
+    public String getAppSecretKey() {
+        return appSecretKey;
+    }
+
+    public OauthClientDetails setAppSecretKey(String appSecretKey) {
+        this.appSecretKey = appSecretKey;
+        return this;
+    }
+
+    public String getWebServerRedirectUrl() {
+        return webServerRedirectUrl;
+    }
+
+    public OauthClientDetails setWebServerRedirectUrl(String webServerRedirectUrl) {
+        this.webServerRedirectUrl = webServerRedirectUrl;
+        return this;
+    }
+
     private static final long serialVersionUID = -6947822646185526939L;
+
+    private String num;
 
     private Date createTime = DateUtils.now();
     private boolean archived = false;
 
-    private String clientId;
+    private String appNum;
     private String resourceIds;
 
-    private String clientSecret;
+    private String appSecretKey;
     /**
      * Available values: read,write
      */
@@ -37,7 +75,7 @@ public class OauthClientDetails implements Serializable {
     /**
      * The re-direct URI(s) established during registration (optional, comma separated).
      */
-    private String webServerRedirectUri;
+    private String webServerRedirectUrl;
 
     /**
      * Authorities that are granted to the client (comma-separated). Distinct from the authorities
@@ -102,17 +140,11 @@ public class OauthClientDetails implements Serializable {
         return archived;
     }
 
-    public String getClientId() {
-        return clientId;
-    }
 
     public String getResourceIds() {
         return resourceIds;
     }
 
-    public String getClientSecret() {
-        return clientSecret;
-    }
 
     public String getScope() {
         return scope;
@@ -122,9 +154,6 @@ public class OauthClientDetails implements Serializable {
         return authorizedGrantTypes;
     }
 
-    public String getWebServerRedirectUri() {
-        return webServerRedirectUri;
-    }
 
     public String getAuthorities() {
         return authorities;
@@ -149,12 +178,12 @@ public class OauthClientDetails implements Serializable {
         sb.append("OauthClientDetails");
         sb.append("{createTime=").append(createTime);
         sb.append(", archived=").append(archived);
-        sb.append(", clientId='").append(clientId).append('\'');
+        sb.append(", appNum='").append(appNum).append('\'');
         sb.append(", resourceIds='").append(resourceIds).append('\'');
-        sb.append(", clientSecret='").append(clientSecret).append('\'');
+        sb.append(", appSecretKey='").append(appSecretKey).append('\'');
         sb.append(", scope='").append(scope).append('\'');
         sb.append(", authorizedGrantTypes='").append(authorizedGrantTypes).append('\'');
-        sb.append(", webServerRedirectUri='").append(webServerRedirectUri).append('\'');
+        sb.append(", webServerRedirectUrl='").append(webServerRedirectUrl).append('\'');
         sb.append(", authorities='").append(authorities).append('\'');
         sb.append(", accessTokenValidity=").append(accessTokenValidity);
         sb.append(", refreshTokenValidity=").append(refreshTokenValidity);
@@ -174,17 +203,9 @@ public class OauthClientDetails implements Serializable {
         return createTime;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
 
     public OauthClientDetails setResourceIds(String resourceIds) {
         this.resourceIds = resourceIds;
-        return this;
-    }
-
-    public OauthClientDetails setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
         return this;
     }
 
@@ -198,10 +219,6 @@ public class OauthClientDetails implements Serializable {
         return this;
     }
 
-    public OauthClientDetails setWebServerRedirectUri(String webServerRedirectUri) {
-        this.webServerRedirectUri = webServerRedirectUri;
-        return this;
-    }
 
     public OauthClientDetails setAuthorities(String authorities) {
         this.authorities = authorities;

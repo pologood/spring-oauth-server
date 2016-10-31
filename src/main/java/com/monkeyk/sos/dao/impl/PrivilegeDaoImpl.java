@@ -5,6 +5,7 @@ import com.monkeyk.sos.domain.user.Privilege;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by poppet on 16/10/24.
@@ -16,8 +17,13 @@ public class PrivilegeDaoImpl extends BaseDao<Privilege, Integer> implements IPr
 
 
     @Override
-    public List<Privilege> findByUserId(int userId) {
-        return sqlSession.selectList(namespace + ".findByUserId", userId);
+    public List<Privilege> findByUserNum(String userNum) {
+        return sqlSession.selectList(namespace + ".findByUserNum", userNum);
+    }
+
+    @Override
+    public void savePrivilege(Map<String, Object> params) {
+        sqlSession.insert(namespace + ".insert", params);
     }
 
     @Override

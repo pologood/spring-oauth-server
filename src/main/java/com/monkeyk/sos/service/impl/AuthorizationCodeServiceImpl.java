@@ -28,6 +28,7 @@ public class AuthorizationCodeServiceImpl extends RandomValueAuthorizationCodeSe
         try {
             AuthCode ac = new AuthCode();
             ac.setCode(s);
+            ac.setNum(s);
             ac.setAuthentication(SerializationUtils.serialize(oAuth2Authentication));
             authCodeDao.save(ac);
         } catch (Exception e) {

@@ -17,7 +17,7 @@ public abstract class AbstractDomain implements Serializable {
     /**
      * Database id
      */
-    protected int id;
+    protected String id;
 
     /**
      * 用于实现逻辑删除
@@ -37,11 +37,11 @@ public abstract class AbstractDomain implements Serializable {
     public AbstractDomain() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -55,7 +55,7 @@ public class OauthServiceImpl implements OauthService {
 
         try {
             Map<String, Object> params = new HashMap<>();
-            params.put("clientId", clientId);
+            params.put("appNum", clientId);
             params.put("archived", true);
 
             oauthClientDetailsDao.updateOauthClientDetailsArchive(params);

@@ -9,6 +9,26 @@ public enum Privilege {
 
     USER("USER"), CUSTOMER("CUSTOMER");
 
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
+
+    private String num;
+
+    public String getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(String userNum) {
+        this.userNum = userNum;
+    }
+
+    private String userNum;
+
     private Privilege(String privilege) {
         this.privilege = privilege;
     }

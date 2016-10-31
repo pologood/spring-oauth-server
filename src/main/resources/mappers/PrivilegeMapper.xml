@@ -3,23 +3,26 @@
 <mapper namespace="com.monkeyk.sos.domain.user.Privilege">
     <resultMap id="privilegeMap" type="com.monkeyk.sos.domain.user.Privilege">
         <result column="privilege" property="privilege" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
+        <result column="user_num" property="userNum" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insert" parameterType="map">
-        insert into user_privilege(user_id,privilege)
-                values (#{useId},#{privilege})
+        insert into user_privilege(num,user_num,privilege)
+                values (#{num},#{userNum},#{privilege})
     </insert>
+
+
 
     <delete id="deleteById" parameterType="int">
     </delete>
 
 
-
     <select id="findById" parameterType="long" resultMap="privilegeMap">
     </select>
 
-    <select id="findByUserId" parameterType="int" resultMap="privilegeMap">
-        select privilege from user_privilege where user_id = #{userId}
+    <select id="findByUserNum" parameterType="String" resultMap="privilegeMap">
+        select privilege from user_privilege where user_num = #{userNum}
     </select>
 
 </mapper>

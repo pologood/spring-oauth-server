@@ -41,19 +41,22 @@ public class OauthClientDetailsDto implements Serializable {
 
     private boolean trusted;
 
+    private String num;
+
     public OauthClientDetailsDto() {
     }
 
     public OauthClientDetailsDto(OauthClientDetails clientDetails) {
-        this.clientId = clientDetails.getClientId();
-        this.clientSecret = clientDetails.getClientSecret();
+        this.clientId = clientDetails.getAppNum();
+        this.clientSecret = clientDetails.getAppSecretKey();
         this.scope = clientDetails.getScope();
 
+        this.num = clientDetails.getNum();
         this.createTime = DateUtils.toDateTime(clientDetails.createTime());
         this.archived = clientDetails.isArchived();
         this.resourceIds = clientDetails.getResourceIds();
 
-        this.webServerRedirectUri = clientDetails.getWebServerRedirectUri();
+        this.webServerRedirectUri = clientDetails.getWebServerRedirectUrl();
         this.authorities = clientDetails.getAuthorities();
         this.accessTokenValidity = clientDetails.getAccessTokenValidity();
 
@@ -209,14 +212,14 @@ public class OauthClientDetailsDto implements Serializable {
 
     public OauthClientDetails createDomain() {
         OauthClientDetails clientDetails = new OauthClientDetails()
-                .setClientSecret(clientSecret)
+                .setAppSecretKey(clientSecret)
                 .setResourceIds(resourceIds)
                 .setAuthorizedGrantTypes(authorizedGrantTypes)
                 .setScope(scope);
-        clientDetails.setClientId(clientId);
+        clientDetails.setAppNum(clientId);
 
         if (StringUtils.isNotEmpty(webServerRedirectUri)) {
-            clientDetails.setWebServerRedirectUri(webServerRedirectUri);
+            clientDetails.setWebServerRedirectUrl(webServerRedirectUri);
         }
 
         if (StringUtils.isNotEmpty(authorities)) {

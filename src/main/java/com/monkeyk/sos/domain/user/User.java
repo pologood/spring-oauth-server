@@ -1,9 +1,11 @@
 package com.monkeyk.sos.domain.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.monkeyk.sos.domain.AbstractDO;
 import com.monkeyk.sos.domain.AbstractDomain;
 
 /**
@@ -11,14 +13,50 @@ import com.monkeyk.sos.domain.AbstractDomain;
  *
  * @author Shengzhao Li
  */
-public class User extends AbstractDomain {
-
+public class User implements Serializable {
 
     private static final long serialVersionUID = -2921689304753120556L;
 
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private boolean archived;
+
+    private String guid;//GuidGenerator.generate();
 
     private String username;
     private String password;
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+
+    public void setDefaultUser(boolean defaultUser) {
+        this.defaultUser = defaultUser;
+    }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
+    }
 
     private String phone;
     private String email;
@@ -68,7 +106,6 @@ public class User extends AbstractDomain {
         final StringBuilder sb = new StringBuilder();
         sb.append("{username='").append(username).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", id='").append(id).append('\'');
         sb.append(", guid='").append(guid).append('\'');
         sb.append(", defaultUser='").append(defaultUser).append('\'');
         sb.append(", email='").append(email).append('\'');
@@ -86,7 +123,6 @@ public class User extends AbstractDomain {
         return this;
     }
 
-
     public User setUsername(String username) {
         this.username = username;
         return this;
@@ -99,11 +135,6 @@ public class User extends AbstractDomain {
 
     public User setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
-        return this;
-    }
-
-    public User createTime(Date createTime) {
-        this.createTime = createTime;
         return this;
     }
 

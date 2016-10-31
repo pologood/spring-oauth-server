@@ -43,11 +43,11 @@
 
         <div class="col-sm-10">
             <label class="checkbox-inline">
-                <form:checkbox path="privileges" value="MOBILE"/> MOBILE
+                <form:checkbox path="privileges" value="CUSTOMER"/> CUSTOMER
             </label>
-            <label class="checkbox-inline">
-                <form:checkbox path="privileges" value="UNITY"/> UNITY
-            </label>
+            <%--<label class="checkbox-inline">--%>
+                <%--<form:checkbox path="privileges" value="UNITY"/> UNITY--%>
+            <%--</label>--%>
 
             <p class="help-block">Select Privilege(s).</p>
         </div>

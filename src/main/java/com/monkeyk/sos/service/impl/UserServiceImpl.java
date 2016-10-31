@@ -7,6 +7,7 @@ import com.monkeyk.sos.domain.UserFormDto;
 import com.monkeyk.sos.domain.UserJsonDto;
 import com.monkeyk.sos.domain.UserOverviewDto;
 import com.monkeyk.sos.domain.shared.security.WdcyUserDetails;
+import com.monkeyk.sos.domain.user.Privilege;
 import com.monkeyk.sos.domain.user.User;
 import com.monkeyk.sos.service.UserService;
 import org.slf4j.Logger;
@@ -21,7 +22,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 处理用户, 账号, 安全相关业务
@@ -58,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
     private User findPrivilieges(User user) {
         try {
-            user.getPrivileges().addAll(privilegeDao.findByUserId(user.getId()));
+            user.getPrivileges().addAll(privilegeDao.findByUserNum(user.getId()));
             return user;
         } catch (Exception e) {
             logger.error("exception occurred", e);
@@ -115,7 +118,24 @@ public class UserServiceImpl implements UserService {
     public String saveUser(UserFormDto formDto) {
         try {
             User user = formDto.newUser();
+            user.setId(user.getGuid());
             userDao.saveUser(user);
+
+            List<Privilege> privileges = formDto.getPrivileges();
+
+            if (privileges != null && privileges.size() > 0) {
+
+                for (Privilege privilege : privileges) {
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("userNum", user.getId());
+                    params.put("num", user.getId());
+                    params.put("privilege", privilege.getPrivilege());
+
+                    privilegeDao.savePrivilege(params);
+                }
+
+            }
+
             return user.getGuid();
         } catch (Exception e) {
             logger.error("exception occurred", e);

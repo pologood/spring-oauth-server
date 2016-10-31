@@ -3,14 +3,15 @@
 <mapper namespace="com.monkeyk.sos.domain.OauthRefreshToken">
     <resultMap id="refreshTokenMap" type="com.monkeyk.sos.domain.OauthRefreshToken">
         <id column="token_id" property="tokenId" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
         <result column="token" property="token" jdbcType="BLOB"/>
         <result column="authentication" property="authentication" jdbcType="BLOB"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <insert id="insert" parameterType="map">
-        insert into oauth_refresh_token(token_id,token,authentication)
-                values (#{tokenId},#{token},#{authentication})
+        insert into oauth_refresh_token(num,token_id,token,authentication)
+                values (#{num},#{tokenId},#{token},#{authentication})
     </insert>
 
     <delete id="deleteById" parameterType="String">

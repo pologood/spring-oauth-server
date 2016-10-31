@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monkeyk.sos.domain.user.User">
     <resultMap id="userMap" type="com.monkeyk.sos.domain.user.User">
-        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="guid" property="guid" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="DATE"/>
         <result column="archived" property="archived" jdbcType="TINYINT"/>
@@ -16,11 +16,11 @@
 
     <insert id="insert" parameterType="com.monkeyk.sos.domain.user.User"
             useGeneratedKeys="true" keyProperty="id">
-        insert into user(guid,archived,create_time,email,password,username,phone)
-                values (#{guid},#{archived},#{createTime},#{email},#{password},#{username},#{phone})
+        insert into user(id,guid,archived,create_time,email,password,username,phone)
+                values (#{id},#{guid},#{archived},#{createTime},#{email},#{password},#{username},#{phone})
     </insert>
 
-    <delete id="deleteById" parameterType="int">
+    <delete id="deleteById" parameterType="String">
         update user set archived  = 1 where id = #{id}
     </delete>
 

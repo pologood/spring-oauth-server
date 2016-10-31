@@ -8,15 +8,21 @@ import java.util.Date;
  */
 public class OauthAccessToken implements Serializable {
 
+    private String num;
+
+    private String appNum;
+
+    private String customerNum;
+
+    private String customerOpenId;
+
     private String tokenId;
 
-    private byte [] token;
+    private byte[] token;
 
     private String authenticationId;
 
     private String userName;
-
-    private String clientId;
 
     public String getTokenId() {
         return tokenId;
@@ -50,12 +56,36 @@ public class OauthAccessToken implements Serializable {
         this.userName = userName;
     }
 
-    public String getClientId() {
-        return clientId;
+    public String getNum() {
+        return num;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setNum(String num) {
+        this.num = num;
+    }
+
+    public String getAppNum() {
+        return appNum;
+    }
+
+    public void setAppNum(String appNum) {
+        this.appNum = appNum;
+    }
+
+    public String getCustomerNum() {
+        return customerNum;
+    }
+
+    public void setCustomerNum(String customerNum) {
+        this.customerNum = customerNum;
+    }
+
+    public String getCustomerOpenId() {
+        return customerOpenId;
+    }
+
+    public void setCustomerOpenId(String customerOpenId) {
+        this.customerOpenId = customerOpenId;
     }
 
     public byte[] getAuthentication() {
@@ -82,7 +112,7 @@ public class OauthAccessToken implements Serializable {
         this.createTime = createTime;
     }
 
-    private byte [] authentication;
+    private byte[] authentication;
 
     private String refreshToken;
 

@@ -111,7 +111,7 @@ public class OauthTokenServiceImpl implements TokenStore {
             oauthAccessToken.setToken(SerializationUtils.serialize(token));
             oauthAccessToken.setAuthenticationId(authenticationKeyGenerator.extractKey(authentication));
             oauthAccessToken.setUserName(authentication.isClientOnly() ? null : authentication.getName());
-            oauthAccessToken.setClientId(authentication.getOAuth2Request().getClientId());
+            oauthAccessToken.setAppNum(authentication.getOAuth2Request().getClientId());
             oauthAccessToken.setAuthentication(SerializationUtils.serialize(authentication));
             oauthAccessToken.setRefreshToken(extractTokenKey(refreshToken));
             oauthAccessTokenDao.save(oauthAccessToken);
@@ -298,7 +298,7 @@ public class OauthTokenServiceImpl implements TokenStore {
         try {
 
             Map<String, Object> params = new HashMap<>();
-            params.put("clientId", clientId);
+            params.put("appNum", clientId);
             params.put("userName", userName);
 
             accessTokens = oauthAccessTokenDao.findByParam(params);
@@ -317,7 +317,7 @@ public class OauthTokenServiceImpl implements TokenStore {
         try {
 
             Map<String, Object> params = new HashMap<>();
-            params.put("clientId", clientId);
+            params.put("appNum", clientId);
 
             accessTokens = oauthAccessTokenDao.findByParam(params);
 

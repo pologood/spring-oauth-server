@@ -38,8 +38,8 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
             if (details != null) {
 
                 //SET clientDetails value
-                baseClientDetails = new BaseClientDetails(details.getClientId(), details.getResourceIds(), details.getScope(), details.getAuthorizedGrantTypes(), details.getAuthorities(), details.getWebServerRedirectUri());
-                baseClientDetails.setClientSecret(details.getClientSecret());
+                baseClientDetails = new BaseClientDetails(details.getAppNum(), details.getResourceIds(), details.getScope(), details.getAuthorizedGrantTypes(), details.getAuthorities(), details.getWebServerRedirectUrl());
+                baseClientDetails.setClientSecret(details.getAppSecretKey());
 
                 if (details.getAccessTokenValidity() != null && details.getAccessTokenValidity() > 0) {
                     baseClientDetails.setAccessTokenValiditySeconds(details.getAccessTokenValidity());

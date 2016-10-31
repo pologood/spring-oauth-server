@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monkeyk.sos.domain.AuthCode">
     <resultMap id="authCodeMap" type="com.monkeyk.sos.domain.AuthCode">
+        <result column="num" property="num" jdbcType="VARCHAR"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="authentication" property="authentication" jdbcType="BLOB"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <insert id="insert" parameterType="map">
-        insert into oauth_code(code,authentication)
-                values (#{code},#{authentication})
+        insert into oauth_code(num,code,authentication)
+                values (#{num,}#{code},#{authentication})
     </insert>
 
     <delete id="deleteByCode" parameterType="String">

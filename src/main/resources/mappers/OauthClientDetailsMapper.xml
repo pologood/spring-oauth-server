@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monkeyk.sos.domain.oauth.OauthClientDetails">
     <resultMap id="oauthClientDetailsMap" type="com.monkeyk.sos.domain.oauth.OauthClientDetails">
-        <result column="client_id" property="clientId" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
+        <result column="app_num" property="appNum" jdbcType="VARCHAR"/>
         <result column="resource_ids" property="resourceIds" jdbcType="VARCHAR"/>
-        <result column="client_secret" property="clientSecret" jdbcType="VARCHAR"/>
+        <result column="app_secret_key" property="appSecretKey" jdbcType="VARCHAR"/>
         <result column="scope" property="scope" jdbcType="VARCHAR"/>
         <result column="authorized_grant_types" property="authorizedGrantTypes" jdbcType="VARCHAR"/>
-        <result column="web_server_redirect_uri" property="webServerRedirectUri" jdbcType="VARCHAR"/>
+        <result column="web_server_redirect_url" property="webServerRedirectUrl" jdbcType="VARCHAR"/>
         <result column="authorities" property="authorities" jdbcType="VARCHAR"/>
 
         <result column="access_token_validity" property="accessTokenValidity" jdbcType="INTEGER"/>
@@ -23,16 +24,16 @@
 
     <insert id="insert" parameterType="com.monkeyk.sos.domain.oauth.OauthClientDetails">
         insert into oauth_client_details
-        (client_id, resource_ids, client_secret, scope, authorized_grant_types,
-        web_server_redirect_uri,authorities, access_token_validity,
+        (num,app_num, resource_ids, app_secret_key, scope, authorized_grant_types,
+        web_server_redirect_url,authorities, access_token_validity,
         refresh_token_validity, additional_information, create_time, archived, trusted)
         values
-        (#{clientId},#{resourceIds},#{clientSecret},#{scope},#{authorizedGrantTypes},#{webServerRedirectUri},#{authorities},
+        (#{num},#{appNum},#{resourceIds},#{appSecretKey},#{scope},#{authorizedGrantTypes},#{webServerRedirectUrl},#{authorities},
         #{accessTokenValidity},#{refreshTokenValidity},#{additionalInformation},#{createTime},#{archived},#{trusted})
     </insert>
 
     <delete id="deleteById" parameterType="String">
-        update oauth_client_details set archived  = 1 where client_id = #{clientId}
+        update oauth_client_details set archived  = 1 where app_num = #{appNum}
     </delete>
 
     <update id="update" parameterType="com.monkeyk.sos.domain.oauth.OauthClientDetails">
@@ -42,13 +43,13 @@
                 archived = #{archived},
             </if>
         </set>
-        where client_id = #{clientId};
+        where app_num = #{appNum};
 
     </update>
 
     <select id="findById" parameterType="String" resultMap="oauthClientDetailsMap">
 
-        select * from oauth_client_details where client_id = #{clientId}
+        select * from oauth_client_details where app_num = #{appNum}
     </select>
 
     <select id="findAll" resultMap="oauthClientDetailsMap">
